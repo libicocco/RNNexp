@@ -61,10 +61,10 @@ upto_iterations = 2000 # This is iteration upto which you want to generate motio
 
 for checkpoint_dir in all_checkpoints:
 
-	path_to_trajfiles = '{0}/{1}/'.format(base_dir,checkpoint_dir)
+    path_to_trajfiles = '{0}/{1}/'.format(base_dir,checkpoint_dir)
 
-	if not os.path.exists(path_to_trajfiles):
-		continue
+    if not os.path.exists(path_to_trajfiles):
+        continue
 
     
     #data_stats = cPickle.load(open('{0}h36mstats.pik'.format(path_to_trajfiles)))
