@@ -1,7 +1,7 @@
 function playGeneratedMotion( model,filename,subject,save_frames,thresh )
     addpaths;
     str_split = strsplit(filename,'_');
-    motionidx = str_split{end};
+    motionidx = str_split{end - 1};  % changed since I added a suffix
     db = H36MDataBase.instance;
     
     temp = strsplit(motionidx,'.');    
@@ -40,13 +40,14 @@ function playGeneratedMotion( model,filename,subject,save_frames,thresh )
         T0 = [0 0 0];        
     end;
 
-    idx = 'long';
+    idx = ''; %'long';
     
     
     angleSkel = getAnglesSkel(db,subject);
     c = zeros(1,78);
     [ skel_expmap,~ ] = getExpmapFromSkeleton( angleSkel,c );    
-    motionidx_file = [model,'/','motionprefix',idx,'_N_',motionidx];
+    %motionidx_file = [model,'/','motionprefix',idx,'_N_',motionidx];
+    motionidx_file = [model,'/','motionprefix',idx,'_N_',motionidx, '_conv.csv'];
     forecast_file = [model,'/',filename];
     
     frame_dir = [model,'/videos/',filename,'_'];
