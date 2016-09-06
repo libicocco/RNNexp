@@ -42,11 +42,19 @@ def convertAndSave(fname):
 		fpath = path_to_trajfiles + fname
 		writeMatToCSV(origData,fpath)
 		return True
+all_checkpoints = ['srnn_walking',
+                   'lstm3lr_walking',
+                   'lstm3lr_smoking',
+                   'srnn_discussion',
+                   'srnn_eating',
+                   'erd_smoking',
+                   'srnn_smoking',
+                   'lstm3lr_discussion',
+                   'lstm3lr_eating',
+                   'erd_eating',
+                   'erd_walking',
+                   'erd_discussion']
 
-all_checkpoints = [
-		'checkpoints_dra_T_150_bs_100_tg_100_ls_512_fc_256_initial_lr_0.001_clipnorm_25.0_nschd_[250,500.0,1000.0,1300.0,2000.0,2500.0,3300.0]_nrate_[0.01,0.05,0.1,0.2,0.3,0.5,0.7]_decschd_[1500.0,4500.0]_decrate_[0.1,0.1]_fc_fs_final',
-		'checkpoints_dra_T_150_bs_100_tg_100_ls_512_fc_256_initial_lr_0.001_clipnorm_25.0_nschd_[250,500.0,1000.0,1300.0,2000.0,2500.0,3300.0]_nrate_[0.01,0.05,0.1,0.2,0.3,0.5,0.7]_decschd_[1500.0,4500.0]_decrate_[0.1,0.1]_fs_final'
-		]
 
 numexamples = 25 # This is the number of test mocap sequences
 upto_iterations = 2000 # This is iteration upto which you want to generate motion
