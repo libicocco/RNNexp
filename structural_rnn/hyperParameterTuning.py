@@ -29,13 +29,13 @@ if train_model == 'srnn':
 	params['g_clip'] = 25.0
 	params['truncate_gradient'] = 10 #100
 	params['sequence_length'] = 150 # Length of each sequence fed to RNN
-	params['sequence_overlap'] = 50 
+	params['sequence_overlap'] = 50
 	params['batch_size'] = 100
 	params['lstm_size'] = 10 #512
 	params['node_lstm_size'] = 10 #512
 	params['fc_size'] = 10 #256
 	params['snapshot_rate'] = 250 # Save the model after every 250 iterations
-	params['train_for'] = 'final' 
+	params['train_for'] = 'final'
 	'''
 	Possible options are ['eating','smoking','discussion','final','']
 	'': Use this for validation and hyperparameter tuning
@@ -123,7 +123,7 @@ params['drop_id'] = '9'
 
 my_env = os.environ
 my_env['PATH'] += ':/usr/local/cuda/bin'
-use_gpu = 0
+use_gpu = 1
 if len(gpus) > 0:
 	if use_gpu >= len(gpus):
 		use_gpu = 0
@@ -155,5 +155,3 @@ FNULL = open('{0}stdout.txt'.format(path_to_checkpoint),'w')
 p=sbp.Popen(args,env=my_env)
 pd = p.pid
 p.wait()
-
-
