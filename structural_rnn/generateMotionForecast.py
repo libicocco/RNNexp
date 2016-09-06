@@ -12,7 +12,7 @@ checkpoint = sys.argv[2]
 supported_model = ['srnn','lstm3lr','erd']
 if model not in supported_model:
     print 'Incorrect model, Supported models: ',supported_model
-    return 0
+    sys.exit(1)
 
 
 my_env = os.environ
