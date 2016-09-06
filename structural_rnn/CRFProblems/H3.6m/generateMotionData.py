@@ -58,27 +58,31 @@ for checkpoint_dir in all_checkpoints:
 	if not os.path.exists(path_to_trajfiles):
 		continue
 
-	
-	data_stats = cPickle.load(open('{0}h36mstats.pik'.format(path_to_trajfiles)))
-	data_mean = data_stats['mean']
-	data_std = data_stats['std']
-	dimensions_to_ignore = data_stats['ignore_dimensions']
-	
-	for n in range(numexamples):
-		fname = 'ground_truth_forecast_N_{0}'.format(n)
-		convertAndSave(fname)	
-		fpath = path_to_trajfiles + fname
-		print fpath
-		fname = 'motionprefix_N_{0}'.format(n)
-		convertAndSave(fname)	
-		fpath = path_to_trajfiles + fname
-		
-		for e in range(upto_iterations):
-			fname = 'forecast_epoch_{0}_N_{1}'.format(e,n)
-			convertAndSave(fname)	
-			fpath = path_to_trajfiles + fname
-		for iterations in range(0,5500,250):
-			fname = 'forecast_iteration_{0}_N_{1}'.format(iterations,n)
-			convertAndSave(fname)	
-			fpath = path_to_trajfiles + fname
+    
+    #data_stats = cPickle.load(open('{0}h36mstats.pik'.format(path_to_trajfiles)))
+    data_stats = cPickle.load(open('{0}h36mstats.pik'.format(path_to_trajfiles)))
+    data_mean = data_stats['mean']
+    data_std = data_stats['std']
+    dimensions_to_ignore = data_stats['ignore_dimensions']
+    
+    for n in range(numexamples):
+        fname = 'ground_truth_forecast_N_{0}'.format(n)
+        convertAndSave(fname)   
+        fpath = path_to_trajfiles + fname
+        print fpath
+        fname = 'motionprefix_N_{0}'.format(n)
+        convertAndSave(fname)   
+        fpath = path_to_trajfiles + fname
+        
+        #for e in range(upto_iterations):
+        #    fname = 'forecast_epoch_{0}_N_{1}'.format(e,n)
+        #    convertAndSave(fname)   
+        #    fpath = path_to_trajfiles + fname
+        #for iterations in range(0,5500,250):
+        #    fname = 'forecast_iteration_{0}_N_{1}'.format(iterations,n)
+        #    convertAndSave(fname)   
+        #    fpath = path_to_trajfiles + fname
+        fname = 'forecast_N_{0}'.format(n)
+        convertAndSave(fname)   
+        fpath = path_to_trajfiles + fname
 
