@@ -74,7 +74,7 @@ if args.forecast == 'srnn':
     print "Using checkpoint at: ",path_to_checkpoint
     if os.path.exists(path_to_checkpoint):
 
-	    [nodeNames,nodeList,nodeFeatureLength,nodeConnections,edgeList,edgeListComplete,edgeFeatures,nodeToEdgeConnections,trX,trY,trX_validation,trY_validation,trX_forecasting,trY_forecasting,trX_forecast_nodeFeatures] = graph.readCRFgraph(poseDataset)
+        [nodeNames,nodeList,nodeFeatureLength,nodeConnections,edgeList,edgeListComplete,edgeFeatures,nodeToEdgeConnections,trX,trY,trX_validation,trY_validation,trX_forecasting,trY_forecasting,trX_forecast_nodeFeatures] = graph.readCRFgraph(poseDataset)
 
         print trX_forecast_nodeFeatures.keys()
         print 'Loading the model (this takes long, can take upto 25 minutes)'
