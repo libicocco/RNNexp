@@ -87,8 +87,8 @@ function [R0,T0,writerObj] = playVideo(f,R0,T0,writerObj,skel_expmap,frame_dir,s
     %f=csvread(filename);
     [channels_reconstruct,R0,T0] = revertCoordinateSpace(f,R0,T0);
     if save_frames
-        expPlayData2(skel_expmap, channels_reconstruct, 1.0/100,writerObj,frame_dir);
+        expPlayData(skel_expmap, channels_reconstruct, 1.0/100,writerObj,frame_dir);
     else
-        expPlayData2(skel_expmap, channels_reconstruct, 1.0/100,writerObj);
+        expPlayData(skel_expmap, channels_reconstruct, 1.0/100,writerObj);
     end;
 end
