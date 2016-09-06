@@ -70,7 +70,8 @@ if not os.path.exists(path):
 crf_file = './CRFProblems/H3.6m/crf'
 
 if args.forecast == 'srnn':
-    path_to_checkpoint = '{0}checkpoint'.format(path)
+    path_to_checkpoint = path
+    #path_to_checkpoint = '{0}checkpoint'.format(path)
     print "Using checkpoint at: ",path_to_checkpoint
     if os.path.exists(path_to_checkpoint):
 
@@ -103,7 +104,7 @@ if args.forecast == 'srnn':
         del model
 
 elif args.forecast == 'lstm3lr' or args.forecast == 'erd':
-    path_to_checkpoint = '{0}checkpoint.{1}'.format(path,iteration)
+    path_to_checkpoint = path # '{0}checkpoint.{1}'.format(path,iteration)
     if os.path.exists(path_to_checkpoint):
         print "Loading the model {0} (this may take sometime)".format(args.forecast)
         model = load(path_to_checkpoint)
@@ -129,7 +130,7 @@ elif args.forecast == 'lstm3lr' or args.forecast == 'erd':
         del model
 
 elif args.forecast == 'dracell':
-    path_to_checkpoint = '{0}checkpoint.{1}'.format(path,iteration)
+    path_to_checkpoint = path # '{0}checkpoint.{1}'.format(path,iteration)
     if os.path.exists(path_to_checkpoint):
         [nodeNames,nodeList,nodeFeatureLength,nodeConnections,edgeList,edgeListComplete,edgeFeatures,nodeToEdgeConnections,trX,trY,trX_validation,trY_validation,trX_forecasting,trY_forecasting,trX_forecast_nodeFeatures] = graph.readCRFgraph(poseDataset,noise=0.7,forecast_on_noisy_features=True)
         print trX_forecast_nodeFeatures.keys()
