@@ -358,100 +358,105 @@ th_len = 3
 subsample_data = 1
 
 def runall():
-	global trainData,completeData,validateData,completeValidationData,data_stats,data3Dtensor,Y3Dtensor,validate3Dtensor,validateY3Dtensor,trX_forecast,trY_forecast,malikTrainFeatures,malikPredictFeatures,validate_malikTrainFeatures,validate_malikPredictFeatures,trX_forecast_malik,trY_forecast_malik,data_mean,data_std,dimensions_to_ignore,new_idx,nodeFeatures,predictFeatures,validate_nodeFeatures,validate_predictFeatures,forecast_nodeFeatures,forecast_predictFeatures,minibatch_size,forecastidx,drop_id
-	global trainSubjects,validateSubject,testSubject,actions,nodeFeatures_t_1,validate_nodeFeatures_t_1,forecast_nodeFeatures_t_1,path_to_dataset,drop_start,drop_end,subsample_data,th_len
-	if not subsample_data:
-		th_len = 4
+    global trainData,completeData,validateData,completeValidationData,data_stats,data3Dtensor,Y3Dtensor,validate3Dtensor,validateY3Dtensor,trX_forecast,trY_forecast,malikTrainFeatures,malikPredictFeatures,validate_malikTrainFeatures,validate_malikPredictFeatures,trX_forecast_malik,trY_forecast_malik,data_mean,data_std,dimensions_to_ignore,new_idx,nodeFeatures,predictFeatures,validate_nodeFeatures,validate_predictFeatures,forecast_nodeFeatures,forecast_predictFeatures,minibatch_size,forecastidx,drop_id
+    global trainSubjects,validateSubject,testSubject,actions,nodeFeatures_t_1,validate_nodeFeatures_t_1,forecast_nodeFeatures_t_1,path_to_dataset,drop_start,drop_end,subsample_data,th_len
+    if not subsample_data:
+        th_len = 4
 
-	path_to_dataset = '{0}/dataset{1}'.format(base_dir,dataset_prefix)
+    path_to_dataset = '{0}/dataset{1}'.format(base_dir,dataset_prefix)
 
-	if train_for == 'final':
-		trainSubjects = ['S1','S6','S7','S8','S9','S11']
-		validateSubject = ['S5']
-	if train_for == 'final2':
-		trainSubjects = ['S1','S6','S7','S8','S9','S5']
-		validateSubject = ['S11']
-	if train_for == 'smoking':
-		trainSubjects = ['S1','S6','S7','S8','S9','S11']
-		validateSubject = ['S5']
-		actions = ['smoking']
-	if train_for == 'eating':
-		trainSubjects = ['S1','S6','S7','S8','S9','S11']
-		validateSubject = ['S5']
-		actions = ['eating']
-	if train_for == 'discussion':
-		trainSubjects = ['S1','S6','S7','S8','S9','S11']
-		validateSubject = ['S5']
-		actions = ['discussion']
-	if train_for == 'walkingdog':
-		trainSubjects = ['S1','S6','S7','S8','S9','S11']
-		validateSubject = ['S5']
-		actions = ['walkingdog']
+    if train_for == 'final':
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+    if train_for == 'final2':
+        trainSubjects = ['S1','S6','S7','S8','S9','S5']
+        validateSubject = ['S11']
+    if train_for == 'smoking':
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+        actions = ['smoking']
+    if train_for == 'eating':
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+        actions = ['eating']
+    if train_for == 'discussion':
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+        actions = ['discussion']
+    if train_for == 'walking': # javier
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+        actions = ['walking']
+    if train_for == 'walkingdog':
+        trainSubjects = ['S1','S6','S7','S8','S9','S11']
+        validateSubject = ['S5']
+        actions = ['walkingdog']
 #Load training and validation data
-	[trainData,completeData]=loadTrainData(trainSubjects)
-	[validateData,completeValidationData]=loadTrainData(validateSubject)
+    [trainData,completeData]=loadTrainData(trainSubjects)
+    [validateData,completeValidationData]=loadTrainData(validateSubject)
+    #import ipdb; ipdb.set_trace()
 
 #Compute training data mean
-	[data_mean,data_std,dimensions_to_ignore,new_idx]=normalizationStats(completeData)
-	data_stats = {}
-	data_stats['mean'] = data_mean
-	data_stats['std'] = data_std
-	data_stats['ignore_dimensions'] = dimensions_to_ignore
-	print T
+    [data_mean,data_std,dimensions_to_ignore,new_idx]=normalizationStats(completeData)
+    data_stats = {}
+    data_stats['mean'] = data_mean
+    data_stats['std'] = data_std
+    data_stats['ignore_dimensions'] = dimensions_to_ignore
+    print T
 #Create normalized 3D tensor for training and validation
 
-	if copy_state:
-		[data3Dtensor,Y3Dtensor,minibatch_size] = sampleConnectedTrainSequences(trainData,T,delta_shift)
-		[validate3Dtensor,validateY3Dtensor,minibatch_size_ignore] = sampleConnectedTrainSequences(validateData,T,delta_shift)
-	else:
-		[data3Dtensor,Y3Dtensor,data3Dtensor_t_1,minibatch_size] = sampleTrainSequences(trainData,T,delta_shift)
-		[validate3Dtensor,validateY3Dtensor,validate3Dtensor_t_1,minibatch_size_ignore] = sampleTrainSequences(validateData,T,delta_shift)
+    #import ipdb; ipdb.set_trace()
+    if copy_state:
+        [data3Dtensor,Y3Dtensor,minibatch_size] = sampleConnectedTrainSequences(trainData,T,delta_shift)
+        [validate3Dtensor,validateY3Dtensor,minibatch_size_ignore] = sampleConnectedTrainSequences(validateData,T,delta_shift)
+    else:
+        [data3Dtensor,Y3Dtensor,data3Dtensor_t_1,minibatch_size] = sampleTrainSequences(trainData,T,delta_shift)
+        [validate3Dtensor,validateY3Dtensor,validate3Dtensor_t_1,minibatch_size_ignore] = sampleTrainSequences(validateData,T,delta_shift)
 
-	print 'Training data stats (T,N,D) is ',data3Dtensor.shape
-	print 'Training data stats (T,N,D) is ',validate3Dtensor.shape
+    print 'Training data stats (T,N,D) is ',data3Dtensor.shape
+    print 'Training data stats (T,N,D) is ',validate3Dtensor.shape
 
-	if drop_features:
-		[validate3Dtensor,drop_start,drop_end] = dropFeaturesfromData(validate3Dtensor,drop_id)
+    if drop_features:
+        [validate3Dtensor,drop_start,drop_end] = dropFeaturesfromData(validate3Dtensor,drop_id)
 
 
 #Generate normalized data for trajectory forecasting
-	trX_forecast,trX_forecast_t_1,trY_forecast,forecastidx = generateForecastingExamples(validateData,motion_prefix,motion_suffix,validateSubject[0])
+    trX_forecast,trX_forecast_t_1,trY_forecast,forecastidx = generateForecastingExamples(validateData,motion_prefix,motion_suffix,validateSubject[0])
 
-	data_stats['forecastidx'] = forecastidx
+    data_stats['forecastidx'] = forecastidx
 #Create training and validation features for DRA
-	nodeFeatures = cherryPickNodeFeatures(data3Dtensor)
-	nodeFeatures_t_1 = cherryPickNodeFeatures(data3Dtensor_t_1)
-	validate_nodeFeatures = cherryPickNodeFeatures(validate3Dtensor)
-	validate_nodeFeatures_t_1 = cherryPickNodeFeatures(validate3Dtensor_t_1)
-	forecast_nodeFeatures = cherryPickNodeFeatures(trX_forecast)
-	forecast_nodeFeatures_t_1 = cherryPickNodeFeatures(trX_forecast_t_1)
+    nodeFeatures = cherryPickNodeFeatures(data3Dtensor)
+    nodeFeatures_t_1 = cherryPickNodeFeatures(data3Dtensor_t_1)
+    validate_nodeFeatures = cherryPickNodeFeatures(validate3Dtensor)
+    validate_nodeFeatures_t_1 = cherryPickNodeFeatures(validate3Dtensor_t_1)
+    forecast_nodeFeatures = cherryPickNodeFeatures(trX_forecast)
+    forecast_nodeFeatures_t_1 = cherryPickNodeFeatures(trX_forecast_t_1)
 
-	predictFeatures = cherryPickNodeFeatures(Y3Dtensor)
-	validate_predictFeatures = cherryPickNodeFeatures(validateY3Dtensor)
-	forecast_predictFeatures = cherryPickNodeFeatures(trY_forecast)
+    predictFeatures = cherryPickNodeFeatures(Y3Dtensor)
+    validate_predictFeatures = cherryPickNodeFeatures(validateY3Dtensor)
+    forecast_predictFeatures = cherryPickNodeFeatures(trY_forecast)
 
 #Create training and validation features for Malik's LSTM model
-	malikTrainFeatures = ignoreZeroVarianceFeatures(data3Dtensor)
-	malikPredictFeatures = ignoreZeroVarianceFeatures(Y3Dtensor)
-	validate_malikTrainFeatures = ignoreZeroVarianceFeatures(validate3Dtensor)
-	validate_malikPredictFeatures = ignoreZeroVarianceFeatures(validateY3Dtensor)
-	trX_forecast_malik = ignoreZeroVarianceFeatures(trX_forecast)
-	trY_forecast_malik = ignoreZeroVarianceFeatures(trY_forecast)
+    malikTrainFeatures = ignoreZeroVarianceFeatures(data3Dtensor)
+    malikPredictFeatures = ignoreZeroVarianceFeatures(Y3Dtensor)
+    validate_malikTrainFeatures = ignoreZeroVarianceFeatures(validate3Dtensor)
+    validate_malikPredictFeatures = ignoreZeroVarianceFeatures(validateY3Dtensor)
+    trX_forecast_malik = ignoreZeroVarianceFeatures(trX_forecast)
+    trY_forecast_malik = ignoreZeroVarianceFeatures(trY_forecast)
 
 def randomdropFeaturesfromData(datatensor,drop_id):
-	print 'Dropping features from training set'
-	dataTensor = copy.deepcopy(datatensor)
-	[T,N,D] = dataTensor.shape
-	drop_joints = rng.binomial(1,0.4,size=(T,N,1))
-	dataTensor[:,:,drop_id] = np.repeat(drop_joints,len(drop_id),axis=2) * dataTensor[:,:,drop_id]
-	return dataTensor
+    print 'Dropping features from training set'
+    dataTensor = copy.deepcopy(datatensor)
+    [T,N,D] = dataTensor.shape
+    drop_joints = rng.binomial(1,0.4,size=(T,N,1))
+    dataTensor[:,:,drop_id] = np.repeat(drop_joints,len(drop_id),axis=2) * dataTensor[:,:,drop_id]
+    return dataTensor
 
 
 def dropFeaturesfromData(dataTensor,drop_id):
-	print 'Dropping features from validation set'
-	T = dataTensor.shape[0]
-	start_idx = rng.randint(17,T-11)
-	end_idx = start_idx + 10
-	dataTensor[start_idx:end_idx,:,drop_id] = np.float32(0.0)
-	return dataTensor,start_idx,end_idx
-
+    print 'Dropping features from validation set'
+    T = dataTensor.shape[0]
+    start_idx = rng.randint(17,T-11)
+    end_idx = start_idx + 10
+    dataTensor[start_idx:end_idx,:,drop_id] = np.float32(0.0)
+    return dataTensor,start_idx,end_idx
